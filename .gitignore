@@ -1,5 +1,4 @@
 .*
-config.php
 composer.lock
 *.log
 *.log.err
