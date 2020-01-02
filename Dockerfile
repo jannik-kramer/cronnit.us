@@ -1,3 +1,9 @@
+FROM composer:latest AS composer
+
+COPY . /app
+
+RUN composer install
+
 FROM php:7.2-apache
 
 RUN a2dismod status
@@ -8,7 +14,7 @@ RUN a2enmod ssl
 
 RUN docker-php-ext-install pdo pdo_mysql
 
-COPY . /var/www/html/
+COPY --from=composer /app /var/www/html/
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public_html
 
